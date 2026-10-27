@@ -64,20 +64,22 @@ Panel {
                 Text {
                     width: parent.width
                     text: root.hostWidget ? root.hostWidget.moon.name.toUpperCase() : "MOON-PHASE"
-                    color: root.barForeground
+                    color: Color.foreground
                     font.bold: true
                     font.pixelSize: Style.font.subtitle
                     font.family: root.bar ? root.bar.fontFamily : Style.font.family
                     horizontalAlignment: Text.AlignHCenter
+                    textFormat: Text.PlainText
                 }
                 Text {
                     width: parent.width
-                    text: root.hostWidget ? Number(root.hostWidget.moon.age).toFixed(1) + " days into the lunar cycle" : ""
-                    color: root.barForeground
+                    text: root.hostWidget ? Math.round(root.hostWidget.moon.illumination * 100) + "% lit · " + Number(root.hostWidget.moon.age).toFixed(1) + " days into the cycle" : ""
+                    color: Color.foreground
                     opacity: 0.62
                     font.pixelSize: Style.font.caption
                     font.family: root.bar ? root.bar.fontFamily : Style.font.family
                     horizontalAlignment: Text.AlignHCenter
+                    textFormat: Text.PlainText
                 }
                 // This gap separates the current phase information from the
                 // upcoming events while keeping the whole column centered.
@@ -107,9 +109,10 @@ Panel {
                             }
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
-                                text: Moon.formatDate(modelData.date)
-                                color: root.barForeground
+                                text: modelData.name + "  ·  " + Moon.formatDate(modelData.date)
+                                color: Color.foreground
                                 opacity: 0.72
+                                textFormat: Text.PlainText
                                 font.pixelSize: Style.font.caption
                                 font.family: root.bar ? root.bar.fontFamily : Style.font.family
                             }
